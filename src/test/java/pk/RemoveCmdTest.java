@@ -1,5 +1,4 @@
 package pk;
-
 import static org.junit.Assert.assertFalse;
 
 public abstract class RemoveCmdTest extends CommandTest {

@@ -1,5 +1,4 @@
 package pk;
-
 import org.junit.Before;
 
 public abstract class BookEntryTest {

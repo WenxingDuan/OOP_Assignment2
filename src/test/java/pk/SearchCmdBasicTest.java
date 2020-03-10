@@ -1,5 +1,4 @@
 package pk;
-
 import org.junit.Test;
 
 public class SearchCmdBasicTest extends SearchCmdTest {
