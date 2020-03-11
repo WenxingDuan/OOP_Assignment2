@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/** 
- * Class responsible for handling currently loaded
- * book data and loading additional data from file.
+/**
+ * Class responsible for handling currently loaded book data and loading
+ * additional data from file.
  */
 public class LibraryData {
 
@@ -19,8 +19,9 @@ public class LibraryData {
         books = new ArrayList<>();
     }
 
-    /** 
+    /**
      * Get all available book entries.
+     * 
      * @return available book entries
      */
     public List<BookEntry> getBookData() {
@@ -29,13 +30,14 @@ public class LibraryData {
 
     /**
      * Initiate book data loading for the given path.
+     * 
      * @param libraryFile specified path to book data file
      * @return true if loading was successful, false otherwise
      * @throws NullPointerException if the given path is null
      */
     public boolean loadData(Path libraryFile) {
         Objects.requireNonNull(libraryFile, "Given file path must not be null.");
-               
+
         LibraryFileLoader loader = new LibraryFileLoader();
         boolean success = loader.loadFileContent(libraryFile);
 
@@ -50,12 +52,22 @@ public class LibraryData {
         return success;
     }
 
+    public void removeBook(BookEntry theBook) {
+        int index = 0;
+        for (BookEntry currentBook : books) {
+            if (currentBook.equals(theBook)) {
+                books.remove(index);
+            }
+            index++;
+
+        }
+    }
+
     /**
-     * Merge the list of book entries with the
-     * entries already loaded.
+     * Merge the list of book entries with the entries already loaded.
      * 
-     * Duplicate entries will be discarded (This requires .equals to be
-     * implemented for BookEntry).
+     * Duplicate entries will be discarded (This requires .equals to be implemented
+     * for BookEntry).
      * 
      * @param loaded list of book entries to be merged with data already loaded
      * @return number of book entries added to the library
