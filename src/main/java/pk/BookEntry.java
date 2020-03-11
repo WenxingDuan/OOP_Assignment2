@@ -1,10 +1,8 @@
 package pk;
 
 import java.text.DecimalFormat;
+import java.util.Objects;
 
-/**
- * Immutable class encapsulating data for a single book entry.
- */
 public class BookEntry {
     private String title;
     private String[] authors;
@@ -13,6 +11,14 @@ public class BookEntry {
     private int pages;
 
     public BookEntry(String title, String[] authors, float rating, String ISBN, int pages) {
+        Objects.requireNonNull(title, "Title connot be null");
+        Objects.requireNonNull(authors, "authors connot be null");
+        Objects.requireNonNull(rating, "rating connot be null");
+        Objects.requireNonNull(ISBN, "ISBN connot be null");
+        Objects.requireNonNull(pages, "pages connot be null");
+        if (!(rating > 0 && rating < 5) || pages < 0) {
+            throw new IllegalArgumentException();
+        }
         this.title = title;
         this.authors = authors;
         this.rating = rating;

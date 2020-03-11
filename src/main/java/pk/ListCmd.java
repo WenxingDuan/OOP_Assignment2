@@ -1,8 +1,9 @@
 package pk;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class ListCmd extends LibraryCommand {
+    
     private String argumentInput;
 
     public ListCmd(String argumentInput) {
@@ -12,6 +13,8 @@ public class ListCmd extends LibraryCommand {
     }
 
     public void execute(LibraryData data) {
+        Objects.requireNonNull(data, "data connot be null");
+
         if (data.getBookData().size() == 0) {
             System.out.println(data.getBookData().size() + " The library has no book entries.");
         } else {

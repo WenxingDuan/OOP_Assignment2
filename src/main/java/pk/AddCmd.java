@@ -1,5 +1,6 @@
 package pk;
 
+import java.util.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -12,6 +13,7 @@ public class AddCmd extends LibraryCommand {
     }
 
     public void execute(LibraryData data) {
+        Objects.requireNonNull(data, "data connot be null");
         data.loadData(filePath);
 
     }

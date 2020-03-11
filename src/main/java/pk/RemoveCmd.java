@@ -1,5 +1,7 @@
 package pk;
 
+import java.util.*;
+
 public class RemoveCmd extends LibraryCommand {
     private String argumentInput;
 
@@ -9,38 +11,39 @@ public class RemoveCmd extends LibraryCommand {
     }
 
     public void execute(LibraryData data) {
+        Objects.requireNonNull(data, "data connot be null");
         int numberBooks = 0;
-
         String keyword = formatArguement(argumentInput)[1];
         String searchType = formatArguement(argumentInput)[0];
 
         if (searchType.equals("AUTHOR")) {
-            for (BookEntry theBook : data.getBookData()) {
+            Iterator<BookEntry> it = data.getBookData().iterator();
+            while (it.hasNext()) {
 
-                for (String theAuther : theBook.getAuthors()) {
-                    boolean searchSucess = search(keyword, theAuther);
-                    if (searchSucess) {
-                        data.removeBook(theBook);
-                        numberBooks++;
-                        break;
-                    }
+                boolean searchSucess = search(keyword, it.next().getAuthors()[0]);
+                if (searchSucess) {
+                    it.remove();
+                    numberBooks++;
+                    break;
                 }
-
             }
+
             System.out.println(numberBooks + " books removed for author: " + keyword);
         }
 
         if (searchType.equals("TITLE")) {
-            for (BookEntry theBook : data.getBookData()) {
+            Iterator<BookEntry> it = data.getBookData().iterator();
+            while (it.hasNext()) {
+                String title = it.next().getTitle();
+                boolean searchSucess = search(keyword, title);
 
-                boolean searchSucess = search(keyword, theBook.getTitle());
                 if (searchSucess) {
-                    data.removeBook(theBook);
-                    System.out.println(keyword + ": removed successfully.");
+
+                    System.out.println(title + ": removed successfully.");
+                    it.remove();
                     numberBooks++;
                     break;
                 }
-
             }
             if (numberBooks == 0) {
                 System.out.println("some unknown value: not found.");
@@ -77,5 +80,23 @@ public class RemoveCmd extends LibraryCommand {
             return false;
         }
 
+    }
+
+    public boolean search(String keyWord, String contant) {
+        contant = contant.toLowerCase();
+        keyWord = keyWord.toLowerCase();
+        if (keyWord.length() > contant.length()) {
+            return false;
+        }
+        int loopTime = contant.length() - keyWord.length() + 1;
+        int keyWordLength = keyWord.length();
+        boolean flag = false;
+        for (int i = 0; i < loopTime; i++) {
+            flag = keyWord.equals(contant.substring(i, i + keyWordLength));
+            if (flag) {
+                break;
+            }
+        }
+        return flag;
     }
 }

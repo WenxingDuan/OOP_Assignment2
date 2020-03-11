@@ -37,7 +37,7 @@ public class LibraryData {
      */
     public boolean loadData(Path libraryFile) {
         Objects.requireNonNull(libraryFile, "Given file path must not be null.");
-
+        //if(true){throw new IllegalAccessError(libraryFile.toString());}
         LibraryFileLoader loader = new LibraryFileLoader();
         boolean success = loader.loadFileContent(libraryFile);
 
@@ -52,16 +52,6 @@ public class LibraryData {
         return success;
     }
 
-    public void removeBook(BookEntry theBook) {
-        int index = 0;
-        for (BookEntry currentBook : books) {
-            if (currentBook.equals(theBook)) {
-                books.remove(index);
-            }
-            index++;
-
-        }
-    }
 
     /**
      * Merge the list of book entries with the entries already loaded.

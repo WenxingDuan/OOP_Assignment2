@@ -64,22 +64,6 @@ public abstract class LibraryCommand {
 		return argumentInput.isBlank();
 	}
 
-	public boolean search(String keyWord, String contant) {
-        contant = contant.toLowerCase();
-        keyWord = keyWord.toLowerCase();
-        if (keyWord.length() > contant.length()) {
-            return false;
-        }
-        int loopTime = contant.length() - keyWord.length() + 1;
-        int keyWordLength = keyWord.length();
-        boolean flag = false;
-        for (int i = 0; i < loopTime; i++) {
-            flag = keyWord.equals(contant.substring(i, i + keyWordLength));
-            if (flag) {
-                break;
-            }
-        }
-        return flag;
-    }
+
 
 }
