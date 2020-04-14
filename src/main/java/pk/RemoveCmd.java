@@ -2,14 +2,33 @@ package pk;
 
 import java.util.*;
 
+/**
+ * class to delet the book base of the title or author
+ */
+
 public class RemoveCmd extends LibraryCommand {
     private String argumentInput;
+
+    /**
+     * 
+     * @param argumentInput search type + search keyword
+     * @throws IllegalArgumentException if given arguments are invalid
+     * @throws NullPointerException     if the given argumentInput is null.
+     */
 
     public RemoveCmd(String argumentInput) {
 
         super(CommandType.REMOVE, argumentInput);
     }
 
+    /**
+     * the methor to remove the certain book
+     * 
+     * @param keyword    the search keyword
+     * @param searchType TITLE/AUTHOR
+     * @throws NullPointerException if the given argumentInput is null.
+     */
+    @Override
     public void execute(LibraryData data) {
         Objects.requireNonNull(data, "data connot be null");
         int numberBooks = 0;
@@ -52,6 +71,13 @@ public class RemoveCmd extends LibraryCommand {
         }
     }
 
+    /**
+     * method to get different part in arguementInput
+     * 
+     * @param argumentInput search type + search keyword
+     * @param secondPart    sraech keyword
+     * @return search type or keyword
+     */
     private String[] formatArguement(String argumentInput) {
         String[] arguement = argumentInput.split(" ");
         String secondPart = "";
@@ -65,8 +91,11 @@ public class RemoveCmd extends LibraryCommand {
 
     }
 
+    /**
+     * @return false if arguement is not the right format
+     */
     protected boolean parseArguments(String argumentInput) {
-        if (search(" ", argumentInput) == false) {
+        if (search(" ", argumentInput) == false) {/*  */
             return false;
         }
         String[] word = argumentInput.split(" ");
@@ -82,6 +111,13 @@ public class RemoveCmd extends LibraryCommand {
 
     }
 
+    /**
+     * helper function to search
+     * 
+     * @param keyWord the keyword to search
+     * @param contant search the keyword form contant
+     * @return true if keyword exist
+     */
     public boolean search(String keyWord, String contant) {
         contant = contant.toLowerCase();
         keyWord = keyWord.toLowerCase();
